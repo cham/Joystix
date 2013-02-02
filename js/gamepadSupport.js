@@ -1,7 +1,7 @@
 define(function(){
 	'use strict';
 
-	return {
+	var gamepadSupport = {
 	    TYPICAL_BUTTON_COUNT: 16,
 	    TYPICAL_AXIS_COUNT: 4,
 	    ticking: false,
@@ -93,7 +93,7 @@ define(function(){
 	    },
 	    updateDisplay: function (gamepadId) {
 	        var gamepad = gamepadSupport.gamepads[gamepadId],
-	        	count = 15;
+	        	count = 16;
 	        // gamepad.buttons[0-15]
 	        // gamepad.axes[0-3]
 	        while(count--){
@@ -101,7 +101,15 @@ define(function(){
 	        		console.log('PRESS',count);
 	        	}
 	        }
+	        count = 4;
+	        while(count--){
+	        	if(gamepad.axes[count] && Math.abs(gamepad.axes[count])>0.1){
+	        		console.log('AXIS',count,gamepad.axes[count]);
+	        	}
+	        }
 	    }
 	};
+
+	return gamepadSupport;
 
 });
