@@ -2,19 +2,24 @@
 	main.js file
 */
 require(['lib/DependencyLoader',
-		 'gamepadSupport'],
+		 'gamepadSupport',
+		 'MultiTouchJoystick'],
 function(DependencyLoader,
-		 gamepadSupport){
+		 gamepadSupport,
+		 MultiTouchJoystick){
 	'use strict';
 
 	new DependencyLoader({
 		onLoaded: function(){
+			var $window = $(window);
 
 			console.log('Dependencies loaded');
 			// your code here
 
 			gamepadSupport.init();
 			gamepadSupport.startPolling();
+
+			MultiTouchJoystick.init($window.width(),$window.height());
 
 		},
 		// domready: true
