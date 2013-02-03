@@ -1,9 +1,11 @@
 define(['lib/Modernizr.2.6.2-touch',
 		'gamepadSupport',
-		'MultiTouchJoystick'],
+		'MultiTouchJoystick',
+		'KeyboardController'],
 function(Modernizr,
 		 gamepadSupport,
-		 MultiTouchJoystick){
+		 MultiTouchJoystick,
+		 KeyboardController){
 	'use strict';
 
 	function Joystix(opts){
@@ -18,6 +20,8 @@ function(Modernizr,
 		gamepadSupport.startPolling();
 
 		MultiTouchJoystick.init(this.$window.width(), this.$window.height());
+
+		KeyboardController.init(this.$window);
 
 		this.poll();
 	}
@@ -48,7 +52,28 @@ function(Modernizr,
 		};
 	};
 
+	Joystix.prototype.getMovementForKeyboard = function(movementStatus){
+		var x = movementStatus.RIGHT ? 10 : (movementStatus.LEFT ? -10 : 0),
+			y = movementStatus.DOWN ? 10 : (movementStatus.UP ? -10 : 0);
+
+		return {
+			x1: x,
+			y1: y,
+			x2: 0,
+			y2: 0
+		};
+	};
+
 	Joystix.prototype.getButtonPressForMultiTouch = function(isPressed){
+		var buttonArray = [];
+		_(this.numButtons).times(function(){
+			buttonArray.push(false);
+		});
+		buttonArray[0] = isPressed;
+		return buttonArray;
+	};
+
+	Joystix.prototype.getButtonsForKeyboard = function(isPressed){
 		var buttonArray = [];
 		_(this.numButtons).times(function(){
 			buttonArray.push(false);
@@ -69,6 +94,9 @@ function(Modernizr,
 			}else if(Modernizr && Modernizr.touch){
 				self.moveCb(self.getMovementForMultiTouch(MultiTouchJoystick.getMovementIntent()));
 				self.buttonCb(self.getButtonPressForMultiTouch(MultiTouchJoystick.getButtonPress()));
+			}else{
+				self.moveCb(self.getMovementForKeyboard(KeyboardController.getMovement()));
+				self.buttonCb(self.getButtonsForKeyboard(KeyboardController.getButtonPress()));
 			}
 			window.requestAnimationFrame(loop);
 		}
