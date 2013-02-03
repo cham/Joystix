@@ -8,6 +8,8 @@ define(function(){
 	    gamepads: [],
 	    prevRawGamepadTypes: [],
 	    prevTimestamps: [],
+		buttonPresses: [],
+		movedAxes: [],
 	    init: function () {
 	        var gamepadSupportAvailable = !! navigator.webkitGetGamepads || !! navigator.webkitGamepads || (navigator.userAgent.indexOf('Firefox/') != -1);
 	        if (!gamepadSupportAvailable) {
@@ -69,7 +71,7 @@ define(function(){
 	                continue;
 	            }
 	            gamepadSupport.prevTimestamps[i] = gamepad.timestamp;
-	            gamepadSupport.updateDisplay(i);
+	            gamepadSupport.updateStatus(i);
 	        }
 	    },
 	    pollGamepads: function () {
@@ -91,22 +93,31 @@ define(function(){
 	            }
 	        }
 	    },
-	    updateDisplay: function (gamepadId) {
+	    updateStatus: function (gamepadId) {
 	        var gamepad = gamepadSupport.gamepads[gamepadId],
-	        	count = 16;
-	        // gamepad.buttons[0-15]
-	        // gamepad.axes[0-3]
+	        	count;
+
+	        this.buttonPresses = [];
+	        this.movedAxes = [];
+
+	        count = 16;
 	        while(count--){
 	        	if(gamepad.buttons[count]){
-	        		console.log('PRESS',count);
+	        		this.buttonPresses.push(count);
 	        	}
 	        }
 	        count = 4;
 	        while(count--){
 	        	if(gamepad.axes[count] && Math.abs(gamepad.axes[count])>0.1){
-	        		console.log('AXIS',count,gamepad.axes[count]);
+	        		this.movedAxes.push(count);
 	        	}
 	        }
+	    },
+	    getStatus: function(){
+	    	return {
+	    		buttonPresses: this.buttonPresses,
+	    		movedAxes: this.movedAxes
+	    	};
 	    }
 	};
 

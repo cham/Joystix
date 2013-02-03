@@ -2,31 +2,23 @@
 	main.js file
 */
 require(['lib/DependencyLoader',
-		 'gamepadSupport',
-		 'MultiTouchJoystick'],
+		 'Joystix'],
 function(DependencyLoader,
-		 gamepadSupport,
-		 MultiTouchJoystick){
+		 Joystix){
 	'use strict';
 
 	new DependencyLoader({
 		onLoaded: function(){
-			var $window = $(window);
 
-			console.log('Dependencies loaded');
-			// your code here
+			var controller = new Joystix({
+				$window: $(window)
+			});
 
-			gamepadSupport.init();
-			gamepadSupport.startPolling();
-
-			MultiTouchJoystick.init($window.width(),$window.height());
+			controller.onMove(function(x,y){
+				console.log('Move',x,y);
+			});
 
 		},
-		// domready: true
-		// preload: true
-		// dependencies: [{symbol:$.fn.scrollTo, path:'lib/jquery-scrollTo.js'}]
-	}).add({
-		// symbol: $.fn.scrollTo,
-		// path:'lib/jquery-scrollTo.js'
+		domready: true
 	}).load();
 });
