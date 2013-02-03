@@ -11,3 +11,36 @@ The following APIs and libraries are used, in this order of preference, dependin
 GamepadAPI support from http://www.html5rocks.com/en/tutorials/doodles/gamepad/
 
 MultiTouch joystick from http://seb.ly/2011/04/multi-touch-game-controller-in-javascripthtml5-for-ipad/
+
+===========
+
+See js/main.js for example usage:
+
+```js
+var controller = new Joystix({
+	$window: $(window)
+});
+
+controller.onMove(function(movement){
+	if(movement.x1){
+		if(movement.x1>2){
+			console.log('Right');
+		}else if(movement.x1<-2){
+			console.log('Left');
+		}
+	}
+	if(movement.y1){
+		if(movement.y1>2){
+			console.log('Down');
+		}else if(movement.y1<-2){
+			console.log('Up');
+		}
+	}
+});
+
+controller.onButtonPress(function(buttonPresses){
+	if(buttonPresses[0]){
+		console.log('Fire!');
+	}
+});
+```
