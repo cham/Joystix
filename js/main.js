@@ -15,7 +15,6 @@ function(DependencyLoader,
 			});
 
 			controller.onMove(function(movement){
-				// console.log('Move',movement);
 				if(movement.x1){
 					if(movement.x1>2){
 						console.log('Right');
