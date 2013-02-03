@@ -4,7 +4,7 @@
 define(['Vector2'],
 function(Vector2){
 	'use strict';
-	
+
 	return {
 
 		cw: -1,
@@ -21,6 +21,7 @@ function(Vector2){
 		leftTouchID: -1, 
 		leftTouchPos: new Vector2(0,0),
 		leftTouchStartPos: new Vector2(0,0),
+		rightTouchId: -1,
 		leftVector: new Vector2(0,0),
 
 		init: function init(w,h){
@@ -37,7 +38,7 @@ function(Vector2){
 						self.leftVector.reset(0,0);
 						continue;
 					} else {
-						//makeBullet(); 
+						self.rightTouchId = touch.identifier;
 					}	
 				}
 				self.touches = e.touches;
@@ -65,7 +66,9 @@ function(Vector2){
 						self.leftTouchID = -1; 
 						self.leftVector.reset(0,0); 
 						break; 		
-					}		
+					}else if(self.rightTouchId === touch.identifier){
+						self.rightTouchId = -1;
+					}
 				}
 			}
 
@@ -148,7 +151,7 @@ function(Vector2){
 
 		getMovementIntent: function getMovementIntent(){
 			var distFact = 7,
-				maxSpeed = 7,
+				maxSpeed = 10,
 				moveX = Math.ceil(this.leftVector.x / distFact),
 				moveY = Math.ceil(this.leftVector.y / distFact);
 
@@ -156,6 +159,10 @@ function(Vector2){
 				x:  moveX < -maxSpeed ? -maxSpeed : moveX > maxSpeed ? maxSpeed : moveX,
 				y:  moveY < -maxSpeed ? -maxSpeed : moveY > maxSpeed ? maxSpeed : moveY
 			};
+		},
+
+		getButtonPress: function getButtonPress(){
+			return this.rightTouchId !== -1;
 		}
 
 	};

@@ -14,8 +14,28 @@ function(DependencyLoader,
 				$window: $(window)
 			});
 
-			controller.onMove(function(x,y){
-				console.log('Move',x,y);
+			controller.onMove(function(movement){
+				// console.log('Move',movement);
+				if(movement.x1){
+					if(movement.x1>2){
+						console.log('Right');
+					}else if(movement.x1<-2){
+						console.log('Left');
+					}
+				}
+				if(movement.y1){
+					if(movement.y1>2){
+						console.log('Down');
+					}else if(movement.y1<-2){
+						console.log('Up');
+					}
+				}
+			});
+
+			controller.onButtonPress(function(buttonPresses){
+				if(buttonPresses[0]){
+					console.log('Fire!');
+				}
 			});
 
 		},

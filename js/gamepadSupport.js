@@ -10,6 +10,7 @@ define(function(){
 	    prevTimestamps: [],
 		buttonPresses: [],
 		movedAxes: [],
+		normaliseAxisTo: 10,
 	    init: function () {
 	        var gamepadSupportAvailable = !! navigator.webkitGetGamepads || !! navigator.webkitGamepads || (navigator.userAgent.indexOf('Firefox/') != -1);
 	        if (!gamepadSupportAvailable) {
@@ -89,28 +90,27 @@ define(function(){
 	                }
 	            }
 	            if (gamepadsChanged) {
-	            	console.log('Gamepads changed',gamepadSupport.gamepads);
+	            	// console.log('Gamepads changed',gamepadSupport.gamepads);
 	            }
 	        }
+	    },
+	    normaliseAxis: function(pad, axisId){
+	    	return Math.floor(pad.axes[axisId] * this.normaliseAxisTo);
 	    },
 	    updateStatus: function (gamepadId) {
 	        var gamepad = gamepadSupport.gamepads[gamepadId],
 	        	count;
 
-	        this.buttonPresses = [];
-	        this.movedAxes = [];
+	        this.buttonPresses = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+	        this.movedAxes = [0,0,0,0];
 
 	        count = 16;
 	        while(count--){
-	        	if(gamepad.buttons[count]){
-	        		this.buttonPresses.push(count);
-	        	}
+	        	this.buttonPresses[count] = !!gamepad.buttons[count];
 	        }
 	        count = 4;
 	        while(count--){
-	        	if(gamepad.axes[count] && Math.abs(gamepad.axes[count])>0.1){
-	        		this.movedAxes.push(count);
-	        	}
+	        	this.movedAxes[count] = (this.normaliseAxis(gamepad,count));
 	        }
 	    },
 	    getStatus: function(){
