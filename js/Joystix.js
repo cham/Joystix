@@ -16,7 +16,7 @@ function(Modernizr,
 		this.buttonCb = function(){};
 
 		this.numButtons = 15;
-		this.keyboardSpeed = opt.keyboardSpeed || 5;
+		this.keyboardSpeed = opts.keyboardSpeed || 5;
 
 		gamepadSupport.init();
 		gamepadSupport.startPolling();
