@@ -97,7 +97,7 @@ define(function(){
 	    },
 	    normaliseAxis: function(pad, axisId){
 	    	var normalised = Math.floor(pad.axes[axisId] * this.normaliseAxisTo);
-	    	if(normalised<this.axisDeadZone){ return 0; }
+	    	if(Math.abs(normalised)<this.axisDeadZone){ return 0; }
 	    	return normalised;
 	    },
 	    updateStatus: function (gamepadId) {

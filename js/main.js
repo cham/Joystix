@@ -23,16 +23,16 @@ function(DependencyLoader,
 
 			controller.onMove(function(movement){
 				if(movement.x1){
-					if(movement.x1>2){
+					if(movement.x1>0){
 						player.moveRight();
-					}else if(movement.x1<-2){
+					}else if(movement.x1<0){
 						player.moveLeft();
 					}
 				}
 				if(movement.y1){
-					if(movement.y1>2){
+					if(movement.y1>0){
 						player.moveDown();
-					}else if(movement.y1<-2){
+					}else if(movement.y1<0){
 						player.moveUp();
 					}
 				}
