@@ -2,38 +2,45 @@
 	main.js file
 */
 require(['lib/DependencyLoader',
-		 'Joystix'],
+		 'Joystix',
+		 'SimpleAvatar'],
 function(DependencyLoader,
-		 Joystix){
+		 Joystix,
+		 SimpleAvatar){
 	'use strict';
 
 	new DependencyLoader({
 		onLoaded: function(){
 
-			var controller = new Joystix({
-				$window: $(window)
-			});
+			// example Joystix code
+			// SimpleAvatar is just a div on the screen that moves around when you tell it to
+			var player = new SimpleAvatar({
+					$body: $('body')
+				}),
+				controller = new Joystix({
+					$window: $(window)
+				});
 
 			controller.onMove(function(movement){
 				if(movement.x1){
 					if(movement.x1>2){
-						console.log('Right');
+						player.moveRight();
 					}else if(movement.x1<-2){
-						console.log('Left');
+						player.moveLeft();
 					}
 				}
 				if(movement.y1){
 					if(movement.y1>2){
-						console.log('Down');
+						player.moveDown();
 					}else if(movement.y1<-2){
-						console.log('Up');
+						player.moveUp();
 					}
 				}
 			});
 
 			controller.onButtonPress(function(buttonPresses){
 				if(buttonPresses[0]){
-					console.log('Fire!');
+					player.fire();
 				}
 			});
 

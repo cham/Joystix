@@ -134,6 +134,7 @@ function(Vector2){
 
 		setupCanvas: function setupCanvas(w,h) {
 			this.canvas = document.createElement( 'canvas' );
+			this.canvas.style.position = 'absolute';
 			this.context = this.canvas.getContext( '2d' );
 			this.container = document.createElement( 'div' );
 			this.container.className = "container";

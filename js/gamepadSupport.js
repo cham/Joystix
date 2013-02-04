@@ -11,6 +11,7 @@ define(function(){
 		buttonPresses: [],
 		movedAxes: [],
 		normaliseAxisTo: 10,
+		axisDeadZone: 3,
 	    init: function () {
 	        var gamepadSupportAvailable = !! navigator.webkitGetGamepads || !! navigator.webkitGamepads || (navigator.userAgent.indexOf('Firefox/') != -1);
 	        if (!gamepadSupportAvailable) {
@@ -95,7 +96,9 @@ define(function(){
 	        }
 	    },
 	    normaliseAxis: function(pad, axisId){
-	    	return Math.floor(pad.axes[axisId] * this.normaliseAxisTo);
+	    	var normalised = Math.floor(pad.axes[axisId] * this.normaliseAxisTo);
+	    	if(normalised<this.axisDeadZone){ return 0; }
+	    	return normalised;
 	    },
 	    updateStatus: function (gamepadId) {
 	        var gamepad = gamepadSupport.gamepads[gamepadId],
