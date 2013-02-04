@@ -14,6 +14,13 @@ MultiTouch joystick from http://seb.ly/2011/04/multi-touch-game-controller-in-ja
 
 ===========
 
+Joystix requires (and is bundled with)
+* Require.js
+* Underscore.js
+* jQuery
+
+===========
+
 See js/main.js for example usage but here's the tl;dr
 
 ```js
