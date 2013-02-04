@@ -1,14 +1,13 @@
 define(function(){
 	
 	function SimpleAvatar(opts){
-		this.$el = $('<div style="position:absolute;width:20px;height:20px;border-radius:12px;border:2px solid red"/>');
+		this.$el = $('<div style="position:absolute;width:25px;height:27px;background:url(img/zelda.gif)"/>');
 
 		this.speed =5;
 		this.top = 50;
 		this.left = 50;
-		this.colour = '#faa';
 
-		this.$el.css({background:this.colour,top:this.top,left:this.left});
+		this.$el.css({top:this.top,left:this.left});
 		opts.$body.append(this.$el);
 	}
 	SimpleAvatar.prototype.moveUp = function(){
@@ -36,9 +35,9 @@ define(function(){
 	SimpleAvatar.prototype.fire = function(){
 		var self = this;
 
-		this.$el.css({background:'red'});
+		this.$el.css({backgroundColor:'red'});
 		setTimeout(function(){
-			self.$el.css({background:self.colour});
+			self.$el.css({backgroundColor:'transparent'});
 		},100);
 	};
 
