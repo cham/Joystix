@@ -1,7 +1,7 @@
 Joystix
 ===========
 
-A javascript object that proxies several different input types to provide input for games
+Joystix is a javascript object that proxies several different input types to provide input for games
 
 The following APIs and libraries are used, in this order of preference, depending on support:
 * GamepadAPI
