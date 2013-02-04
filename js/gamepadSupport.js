@@ -11,7 +11,7 @@ define(function(){
 		buttonPresses: [],
 		movedAxes: [],
 		normaliseAxisTo: 10,
-		axisDeadZone: 3,
+		axisDeadZone: 4,
 	    init: function () {
 	        var gamepadSupportAvailable = !! navigator.webkitGetGamepads || !! navigator.webkitGamepads || (navigator.userAgent.indexOf('Firefox/') != -1);
 	        if (!gamepadSupportAvailable) {

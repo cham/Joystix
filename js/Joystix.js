@@ -16,6 +16,7 @@ function(Modernizr,
 		this.buttonCb = function(){};
 
 		this.numButtons = 15;
+		this.keyboardSpeed = opt.keyboardSpeed || 5;
 
 		gamepadSupport.init();
 		gamepadSupport.startPolling();
@@ -54,8 +55,8 @@ function(Modernizr,
 	};
 
 	Joystix.prototype.getMovementForKeyboard = function(movementStatus){
-		var x = movementStatus.RIGHT ? 10 : (movementStatus.LEFT ? -10 : 0),
-			y = movementStatus.DOWN ? 10 : (movementStatus.UP ? -10 : 0);
+		var x = movementStatus.RIGHT ? this.keyboardSpeed : (movementStatus.LEFT ? -this.keyboardSpeed : 0),
+			y = movementStatus.DOWN ? this.keyboardSpeed : (movementStatus.UP ? -this.keyboardSpeed : 0);
 
 		return {
 			x1: x,
