@@ -14,7 +14,7 @@ MultiTouch joystick from http://seb.ly/2011/04/multi-touch-game-controller-in-ja
 
 ===========
 
-See js/main.js for example usage:
+See js/main.js for example usage but here's the tl;dr
 
 ```js
 var controller = new Joystix({
@@ -23,17 +23,17 @@ var controller = new Joystix({
 
 controller.onMove(function(movement){
 	if(movement.x1){
-		if(movement.x1>2){
-			console.log('Right');
-		}else if(movement.x1<-2){
-			console.log('Left');
+		if(movement.x1 > 0){
+			console.log('Right!');
+		}else if(movement.x1 < 0){
+			console.log('Left!');
 		}
 	}
 	if(movement.y1){
-		if(movement.y1>2){
-			console.log('Down');
-		}else if(movement.y1<-2){
-			console.log('Up');
+		if(movement.y1 > 0){
+			console.log('Down!');
+		}else if(movement.y1 < 0){
+			console.log('Up!');
 		}
 	}
 });
